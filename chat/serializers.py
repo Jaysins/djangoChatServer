@@ -4,22 +4,17 @@ from pydantic import BaseModel, BaseConfig
 class BaseSchema(BaseModel):
     class Config(BaseConfig):
         from_attributes = True
+        arbitrary_types_allowed = True
 
 
-class UserSignupInput(BaseSchema):
-    email: str
-    username: str
-    phone: str
-    password: str
+class ChatRoomInputSchema(BaseSchema):
+    name: str
+    description: str
+    is_private: str
 
 
-class UserLoginInput(BaseSchema):
-    email: str
-    password: str
-
-
-class UserResponseSchema(BaseSchema):
-    auth_token: str
-    email: str
+class ChatRoomResponseSchema(BaseSchema):
+    name: str
+    description: str
+    is_private: str
     id: int
-    username: str

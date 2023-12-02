@@ -4,12 +4,10 @@ from djangoChatServer.exceptions import CustomValidationError
 from .serializers import UserSignupInput, UserResponseSchema, UserLoginInput
 from .services.user import UserService
 
-
-
 router = Router()
 
 
-@router.post("/signup/", response=UserResponseSchema)
+@router.post("/signup/", response=UserResponseSchema, auth=None)
 def signup(request, user_data: UserSignupInput):
     # Check if the email already exists in the UserRepository
 
@@ -26,7 +24,7 @@ def signup(request, user_data: UserSignupInput):
     return created_user
 
 
-@router.post("/login/", response=UserResponseSchema)
+@router.post("/login/", response=UserResponseSchema, auth=None)
 def login(request, user_data: UserLoginInput):
     # Check if the email already exists in the UserRepository
 

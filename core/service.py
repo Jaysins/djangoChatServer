@@ -6,7 +6,7 @@ class BaseService:
         return cls.repository.create(kwargs)
 
     @classmethod
-    def filter(cls, query):
+    def filter(cls, **kwargs):
         """
 
         :param query:
@@ -14,7 +14,7 @@ class BaseService:
         :return:
         :rtype:
         """
-        return cls.repository.filter(query)
+        return cls.repository.filter(**kwargs)
 
     @classmethod
     def find_one(cls, **kwargs):

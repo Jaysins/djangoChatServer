@@ -1,44 +1,24 @@
 from ninja import Router
+from typing import List
 
-from djangoChatServer.exceptions import CustomValidationError
-from .serializers import UserSignupInput, UserResponseSchema, UserLoginInput
-from .services.user import UserService
-
-
+from .serializers import ChatRoomInputSchema, ChatRoomResponseSchema
+from .services.chat_room import ChatRoomService
 
 router = Router()
 
 
-@router.post("/signup/", response=UserResponseSchema)
-def signup(request, user_data: UserSignupInput):
-    # Check if the email already exists in the UserRepository
-
-    if UserService.find_one(email=user_data.email):
-        raise CustomValidationError(message="User with this email already exists")
-
-    user_data = user_data.model_dump()
-    user_data["username"] = user_data.get("username").lower()
-    user_data["email"] = user_data.get("email").lower()
+@router.post("/chat_rooms/", response=ChatRoomResponseSchema)
+def signup(request, req_data: ChatRoomInputSchema):
+    req_data = req_data.model_dump()
+    req_data['user'] = request.user_context.get("user_id")
     # Create the user
-    created_user = UserService.register(**user_data)
-    # Return the created user object upon successful signup (excluding password)
-    created_user.auth_token = created_user.generate_token()
-    return created_user
+    return ChatRoomService.create(**req_data)
 
 
-@router.post("/login/", response=UserResponseSchema)
-def login(request, user_data: UserLoginInput):
-    # Check if the email already exists in the UserRepository
+@router.get("/chat_rooms/", response=List[ChatRoomResponseSchema])
+def signup(request):
+    # Create the user
+    user = request.user
+    all_rooms = ChatRoomService.filter(user=user.get("id"))
 
-    if not UserService.find_one(email=user_data.email.lower()):
-        raise CustomValidationError(message="User with this email does not exist")
-
-    user_data = user_data.model_dump()
-    user_data["email"] = user_data.get("email").lower()
-    # authenticate the user
-    user = UserService.authenticate_user(**user_data)
-    if not user:
-        raise CustomValidationError(message="User with this email already exists")
-    # Return the created user object upon successful signup (excluding password)
-    user.auth_token = user.generate_token()
-    return user
+    return all_rooms

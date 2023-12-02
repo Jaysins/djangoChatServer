@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'authy'
+    'ninja',
+    'authy',
+    'chat'
 ]
 
 MIDDLEWARE = [
@@ -128,3 +130,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "12345")
 JWT_ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
 JWT_EXPIRES_IN_HOURS = int(os.getenv("JWT_EXPIRES_IN_HOURS", "200"))
+

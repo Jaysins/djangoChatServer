@@ -3,6 +3,7 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 from django.conf import settings
 import jwt
+import uuid
 
 
 class User(models.Model):
@@ -24,6 +25,7 @@ class User(models.Model):
         expires_in = datetime.now() + timedelta(hours=int(settings.JWT_EXPIRES_IN_HOURS))
 
         payload = dict(name=self.username, id=str(self.id), exp=expires_in)
+        print(settings.JWT_SECRET_KEY)
         # print(payload, "token the payload")
         encoded = jwt.encode(payload, key=settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
         return encoded
