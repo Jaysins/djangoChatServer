@@ -21,6 +21,11 @@ def get_chat_room_participants(request, room_id: str):
     return ChatRoomService.get_room_participants(int(room_id))
 
 
+@router.get("/chat_rooms/{room_id}/messages", response=List[MessageResponseSchema])
+def get_chat_room_messages(request, room_id: str):
+    return ChatRoomService.get_room_messages(int(room_id))
+
+
 @router.get("/open_chat_rooms/", response=List[ChatRoomResponseSchema])
 def get_open_chat_room(request):
     return ChatRoomService.filter(is_private=False)
@@ -67,7 +72,8 @@ def join_chat_room(request, room_id: str, req_data: JoinChatRoomInputSchema):
     if room.max_participants is not None and room.participants.count() >= room.max_participants:
         raise CustomValidationError(message="Room full")
 
-    return ChatRoomService.join_room(int(room_id), **req_data)
+    ChatRoomService.join_room(int(room_id), **req_data)
+    return ChatRoomService.get_by_id(int(room_id))
 
 
 @router.post("/chat_rooms/{room_id}/leave", response=DefaultResponseSchema)

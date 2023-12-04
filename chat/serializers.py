@@ -1,5 +1,5 @@
+import datetime
 from typing import List
-
 from core.serializer import *
 from authy.serializers import UserResponseSchema
 
@@ -37,3 +37,10 @@ class ChatRoomResponseSchema(BaseSchema):
     is_private: bool
     id: int
     user: UserResponseSchema
+
+
+class MessageResponseSchema(BaseSchema):
+    content: str
+    user: UserResponseSchema
+    chat_room: ChatRoomResponseSchema
+    created_at: datetime.datetime

@@ -18,7 +18,7 @@ class Chatroom(BaseModel):
 
 class Message(BaseModel):
     content = models.TextField(blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_chatrooms')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='messages_sent')
     chat_room = models.ForeignKey(Chatroom, on_delete=models.CASCADE, related_name='messages')
 
     class Meta:
