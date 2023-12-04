@@ -1,5 +1,4 @@
 import datetime
-from typing import List
 from core.serializer import *
 from authy.serializers import UserResponseSchema
 

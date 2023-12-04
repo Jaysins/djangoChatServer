@@ -3,10 +3,6 @@
 
 """
 
-from datetime import date, datetime
-from math import ceil
-import json
-
 
 def clean_kwargs(ignored_keys, data):
     """
@@ -22,11 +18,6 @@ def clean_kwargs(ignored_keys, data):
         data.pop(key, None)
 
     return data
-
-
-def roundUp(n, d=2):
-    d = int('1' + ('0' * d))
-    return ceil(n * d) / d
 
 
 def populate_obj(obj, data):

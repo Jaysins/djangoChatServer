@@ -1,7 +1,5 @@
-from asgiref.sync import async_to_sync, sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from channels.db import database_sync_to_async
 
 
 def get_room_service():
