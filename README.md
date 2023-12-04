@@ -55,6 +55,8 @@ To run the application locally:
 5. Configure the database settings in `settings.py`.
 6. Apply migrations with `python manage.py migrate`.
 7. Start the server with `python manage.py runserver`.
+8. Start the ASGI server with `daphne -p 8100 djangoChatServer.asgi:application`.
+
 
 ## API Endpoints
 
