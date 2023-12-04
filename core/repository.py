@@ -4,11 +4,11 @@ from core.utils import populate_obj
 
 class BaseRepository:
     model = None
-    
+
     @classmethod
     def create(cls, entity):
         return cls.model.objects.create(**entity)
-    
+
     @classmethod
     def filter(cls, **kwargs):
         """
@@ -16,7 +16,7 @@ class BaseRepository:
         Example: AuthRepository.filter(username='example')
         """
         return cls.model.objects.filter(**kwargs)
-    
+
     @classmethod
     def find_one(cls, **kwargs):
         """
@@ -24,7 +24,7 @@ class BaseRepository:
         Example: AuthRepository.find_one(username='example')
         """
         return cls.filter(**kwargs).first()
-    
+
     @classmethod
     def get_by_id(cls, obj_id):
         """
@@ -37,7 +37,7 @@ class BaseRepository:
             return obj
         except cls.model.DoesNotExist:
             return None
-        
+
     @classmethod
     def update(cls, obj_id, **kwargs):
         """
@@ -48,8 +48,9 @@ class BaseRepository:
         if not obj:
             return
         obj = populate_obj(obj, kwargs)
-        return obj.save()
-    
+        obj.save()
+        return cls.get_by_id(obj_id)
+
     @classmethod
     def delete(cls, user_id):
         """

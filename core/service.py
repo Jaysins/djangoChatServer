@@ -32,9 +32,9 @@ class BaseService:
         return cls.repository.get_by_id(obj_id)
 
     @classmethod
-    def update_user(cls, obj_id, **kwargs):
-        return cls.repository.update(obj_id, kwargs)
+    def update(cls, obj_id, **kwargs):
+        return cls.repository.update(obj_id, **kwargs)
 
     @classmethod
-    def delete_user(cls, obj_id):
+    def delete(cls, obj_id):
         return cls.repository.delete(obj_id)

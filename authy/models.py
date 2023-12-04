@@ -1,17 +1,14 @@
-from django.db import models
-from django.utils import timezone
+from core.model import *
 from datetime import datetime, timedelta
 from django.conf import settings
 import jwt
-import uuid
 
 
-class User(models.Model):
+class User(BaseModel):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=250, blank=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
     password = models.CharField(max_length=50, blank=True, null=True)
-    created_at = models.DateTimeField(default=timezone.now)  # Represents creation timestamp
 
     def __str__(self):
         return self.email  # Customize how the object is displayed in admin or shell

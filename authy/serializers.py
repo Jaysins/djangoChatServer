@@ -1,9 +1,4 @@
-from pydantic import BaseModel, BaseConfig
-
-
-class BaseSchema(BaseModel):
-    class Config(BaseConfig):
-        from_attributes = True
+from core.serializer import *
 
 
 class UserSignupInput(BaseSchema):
@@ -19,7 +14,10 @@ class UserLoginInput(BaseSchema):
 
 
 class UserResponseSchema(BaseSchema):
-    auth_token: str
     email: str
     id: int
     username: str
+
+
+class AuthResponseSchema(UserResponseSchema):
+    auth_token: str
