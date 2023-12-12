@@ -2,6 +2,7 @@ from ninja import Router
 from djangoChatServer.exceptions import CustomValidationError
 from .serializers import *
 from .services.chat_room import ChatRoomService
+from typing import List
 
 router = Router()
 

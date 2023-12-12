@@ -3,11 +3,6 @@ from core.serializer import *
 from authy.serializers import UserResponseSchema
 
 
-class BaseSchema(BaseModel):
-    class Config(BaseConfig):
-        from_attributes = True
-
-
 class DefaultResponseSchema(BaseSchema):
     status: str
 
